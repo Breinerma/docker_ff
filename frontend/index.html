@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Gestor de Productos</title>
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <h1> Catálogo Productos </h1>
+        <form id="productForm">
+            <input type="text" id="name" placeholder="Nombre" required>
+            <input type="text" id="price" placeholder="Precio ($)" required>
+            <input type="text" id="name" placeholder=Nombre required>
+            <button type="submit"> Agregar </button>
+
+            <ul id="productsList"></ul>
+
+        <script>
+            async function fetchProdcutcs(){
+                const res = await fetch('/api/procuts')
+                const items = await res.json()
+                const list = document.getElementById('productList')
+                list.innerHTML = items.map(p => `<li><strong>${p.name}</strong><span>${p.price}</span></li>`).json('')
+            }
+
+            document.getElementById('productForm').addEventListener('submit', async (e) =>{
+                e.preventDefault()
+                const name = document.getElementById('name').value
+                const price = document.getElementById('price').value
+
+                await fetch(`/api/products?name=${encodeURIComponet(name)}&price=${encodeURIComponet(price)}`, {method: 'POST'})
+                document.getElementById('productList').reset()
+                fetchProducts
+            })
+            fetchProducts
+        </script>
+    </body>
+</html>
